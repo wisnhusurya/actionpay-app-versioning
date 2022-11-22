@@ -25,7 +25,7 @@
             <sparkle:criticalUpdate></sparkle:criticalUpdate>
             </sparkle:tags>
             <!-- add these lines to force users updating their app. -->
-            <enclosure sparkle:version="3.6.7" sparkle:os="ios" />
+            <enclosure url="https://apps.apple.com/us/app/autopay/id1524738360" sparkle:version="3.6.7" sparkle:os="ios" />
         </item>
     </channel>
 </rss>
