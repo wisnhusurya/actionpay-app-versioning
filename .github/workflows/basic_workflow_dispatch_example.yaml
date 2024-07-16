@@ -1,0 +1,46 @@
+name: Basic Workflow Dispatch Example
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment'
+        required: true
+        type: choice
+        default: 'dev'
+        options:
+          - 'dev'
+          - 'staging'
+          - 'prod'
+
+jobs:
+  deploy:
+    name: Print to environment [${{ github.event.inputs.environment }}]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Check selected environment
+        id: check_env
+        run: |
+          echo "Selected environment: ${{ github.event.inputs.environment }}"
+          if [[ ${{ github.event.inputs.environment }} == 'dev' ]]; then
+            echo "SELECTED_ENV=development" >> $GITHUB_ENV
+          elif [[ ${{ github.event.inputs.environment }} == 'staging' ]]; then
+            echo "SELECTED_ENV=staging" >> $GITHUB_ENV
+          else
+            echo "SELECTED_ENV=production" >> $GITHUB_ENV
+          fi
+
+      - name: Echo environment message
+        run: |
+          echo "Selected head_commit: ${{ github.event.head_commit.message }}"
+          echo "Selected workflow_run: ${{ github.event.workflow_run.head_commit.message }}"
+          if [[ $SELECTED_ENV == 'development' ]]; then
+            echo "Deploying to development environment."
+          elif [[ $SELECTED_ENV == 'staging' ]]; then
+            echo "Deploying to staging environment."
+          else
+            echo "Deploying to production environment (be cautious!)."
+          fi
