@@ -44,3 +44,6 @@ jobs:
           else
             echo "Deploying to production environment (be cautious!)."
           fi
+      - name: Logging
+        run: |
+          echo "${{toJSON(github.event)}}"
