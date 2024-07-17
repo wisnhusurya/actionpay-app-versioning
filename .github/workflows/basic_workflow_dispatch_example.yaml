@@ -12,10 +12,6 @@ on:
           - 'dev'
           - 'staging'
           - 'prod'
-      print_tags:
-        description: 'True to print to STDOUT'
-        required: true
-        type: boolean
       tags:
         description: 'Test scenario tags'
         required: true
@@ -57,4 +53,4 @@ jobs:
           echo "${{toJSON(github.event)}}"
       
       - name: Print the input tag to STDOUT
-        run: echo  The tags are ${{ inputs.tags }} | print_tags ${{ inputs.print_tags }}
+        run: echo The tags are ${{ inputs.tags }}
